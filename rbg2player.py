@@ -9,9 +9,10 @@ import validators
 @click.command()
 @click.argument('url')
 @click.option('--player', '-p', default='vlc', help="command that is executed to invoke the player, defaults to VLC")
-@click.option('--view', '-v', type=click.Choice(['combined', 'camera', 'presentation']), default='combined', help="view to open")
+@click.option('--view', '-v', type=click.Choice(['combined', 'camera', 'presentation']), default='combined',
+              help="view to open")
 def main(url, player, view):
-    if not validators.url(url):
+    if not validators.url(url) or "live.rbg.tum.de" not in url:
         print("The entered URL is not valid. Please check URL.")
         exit(-1)
 
