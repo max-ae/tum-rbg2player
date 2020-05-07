@@ -7,7 +7,8 @@ A small tool to extract raw video URLs from live.rbg.tum.de streams and VODs and
 #### Dependencies
 
 `rbg2player` requires Python 3 or later.
-Make sure the directory pip installs binarys to is on your PATH (usually ~/.local/bin/, but depends on your Python environment).
+
+Make sure the directory `pip` installs binarys to is on your PATH (usually ~/.local/bin/, but depends on your Python environment).
 
 #### Install using `pip`
 
