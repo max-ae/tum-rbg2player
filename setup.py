@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='rbg2player',
-    version='0.1',
+    version='0.1.1',
     py_modules=['rbg2player'],
     install_requires=['click', 'validators', 'requests'],
     entry_points='''
