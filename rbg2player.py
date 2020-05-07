@@ -25,13 +25,28 @@ def main(url, player, view):
 
     # extract specific video URLs for different perspectives and drop wowza parameters at end of URL
     playlists = ["".join(url) for url in urls]
-    comb = ["".join(url) for url in playlists if 'COMB' in url and 'm3u8' in url][0].split('?')[0]
-    pres = ["".join(url) for url in playlists if 'PRES' in url and 'm3u8' in url][0].split('?')[0]
-    cam = ["".join(url) for url in playlists if 'CAM' in url and 'm3u8' in url][0].split('?')[0]
 
     if view == 'combined':
+        try:
+            comb = ["".join(url) for url in playlists if 'COMB' in url and 'm3u8' in url][0].split('?')[0]
+        except IndexError:
+            print("No combined view found. Try to select a different view.")
+            exit(-1)
         system(f"{player} {comb}\n")
+        return
     if view == 'camera':
+        try:
+            cam = ["".join(url) for url in playlists if 'CAM' in url and 'm3u8' in url][0].split('?')[0]
+        except IndexError:
+            print("No camera view found. Try to select a different view.")
+            exit(-1)
         system(f"{player} {cam}\n")
+        return
     if view == 'presentation':
+        try:
+            pres = ["".join(url) for url in playlists if 'PRES' in url and 'm3u8' in url][0].split('?')[0]
+        except IndexError:
+            print("No presentation view found. Try to select a different view.")
+            exit(-1)
         system(f"{player} {pres}\n")
+        return 
