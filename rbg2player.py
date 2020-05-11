@@ -20,33 +20,30 @@ def main(url, player, view):
     res = requests.get(url)
     text = res.content.decode("utf-8")
     # extract all urls from response
-    urls = re.findall(
-        '(https://)([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?', text)
+    playlists = re.findall(
+        '(https://.*\.m3u8)', text)
 
     # extract specific video URLs for different perspectives and drop wowza parameters at end of URL
-    playlists = ["".join(url) for url in urls]
-
     if view == 'combined':
-        try:
-            comb = ["".join(url) for url in playlists if 'COMB' in url and 'm3u8' in url][0].split('?')[0]
-        except IndexError:
+        comb = [url for url in playlists if 'COMB' in url]
+        if len(comb) == 0:
             print("No combined view found. Try to select a different view.")
             exit(-1)
-        system(f"{player} {comb}\n")
+        system(f"{player} {comb[0]}\n")
         return
+
     if view == 'camera':
-        try:
-            cam = ["".join(url) for url in playlists if 'CAM' in url and 'm3u8' in url][0].split('?')[0]
-        except IndexError:
+        cam = [url for url in playlists if 'CAM' in url]
+        if len(cam) == 0:
             print("No camera view found. Try to select a different view.")
             exit(-1)
-        system(f"{player} {cam}\n")
+        system(f"{player} {cam[0]}\n")
         return
+
     if view == 'presentation':
-        try:
-            pres = ["".join(url) for url in playlists if 'PRES' in url and 'm3u8' in url][0].split('?')[0]
-        except IndexError:
+        pres = [url for url in playlists if 'PRES' in url]
+        if len(pres) == 0:
             print("No presentation view found. Try to select a different view.")
             exit(-1)
-        system(f"{player} {pres}\n")
-        return 
+        system(f"{player} {pres[0]}\n")
+        return
